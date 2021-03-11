@@ -2,15 +2,14 @@
 % The defendant argues that the actions of the master and crew constitute to barratry which was the proximate cause of loss.
 
 % argument.........................................
-damage(ship, barratry).
+cause_of_damage_to_ship(barratry, crew).
 
 % rules.........................................
-covered_by_war_risk :-
+covered_by_war_risk(ACTION, PARTY) :-
     war_risk,
-    not(exemption).
+    not(exemption(ACTION, PARTY)).
 
-% The risks of hostilities or warlike operations including damages 
-% suffered from "weapons of war"
-war_risk :- damage(ship, weapon_of_war).
+war_risk :- cause_of_damage_to_ship(weapon_of_war, _).
 
-exemption :- damage(ship, barratry).
+% exemption 1
+exemption(ACTION, PARTY) :- cause_of_damage_to_ship(barratry, crew).
