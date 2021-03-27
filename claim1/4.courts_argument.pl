@@ -6,28 +6,7 @@
 
 % The sinking of the ship is a warlike operation and is covered by the war risk policy. (Rule 1)
 
-% fact............................................
-damage_ship(weapon_of_war).
+:- include('../war_risk_policy.pl').
 
 % argument.........................................
-cause_of_damage_to_ship(war_like_operations, rebels).
-
-% rules.........................................
-covered_by_war_risk(ACTION, PARTY) :-
-    war_risk,
-    not(exemption(ACTION, PARTY)).
-
-war_risk :- damage_ship(weapon_of_war).
-
-% exemption 1
-exemption(ACTION, PARTY) :- cause_of_damage_to_ship(barratry, crew).
-
-% exemption 2
-exemption(ACTION, PARTY) :- cause_of_damage_to_ship(capture, government_forces). 
-exemption(ACTION, PARTY) :- cause_of_damage_to_ship(seizure, government_forces).
-exemption(ACTION, PARTY) :- cause_of_damage_to_ship(arrest, government_forces).
-exemption(ACTION, PARTY) :- cause_of_damage_to_ship(restraint, government_forces).
-exemption(ACTION, PARTY) :- cause_of_damage_to_ship(detainment, government_forces).
-exemption(ACTION, PARTY) :- cause_of_damage_to_ship(preemption, government_forces).
-exemption(ACTION, PARTY) :- cause_of_damage_to_ship(confiscation, government_forces).
-exemption(ACTION, PARTY) :- cause_of_damage_to_ship(requisition, government_forces).
+cause_of_damage_to_ship(weapon_of_war, rebels).
