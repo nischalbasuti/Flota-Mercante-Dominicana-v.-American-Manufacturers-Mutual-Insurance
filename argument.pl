@@ -1,16 +1,21 @@
-% contrary(bird(tweety), not_bird(tweety)).
-% contrary(not_bird(tweety), bird(tweety)).
+contrary(bird(tweety), not_bird(tweety)).
+contrary(not_bird(tweety), bird(tweety)).
 
 contrary(a, b) :- !, true.
 contrary(b, a) :- !, true.
 
-argument(r, [a)]).
+argument(fly(tweety), [bird(tweety)]).
 
-argument(b, [c]).
+argument(not_bird(tweety), [penguin(tweety)]).
+
+attack(argument(A, _), argument(A_dash, [Y|REST])) :-
+    attack(A,Y), !.
+
+attack(argument(A, B), argument(A_dash, [_, REST])) :-
+    attack(argument(A, B), argument(A_dash, REST).
+
+attack(A, B) :-
+    contrary(A, B),!.
 
 
-attack(argument(A, B), argument(A_dash, [Y, REST])) :-
-    attack(A, argument(A_dash), REST).
 
-attack(argument(A, _), argument(_, [Y, REST])) :-
-    contrary(A, Y).
