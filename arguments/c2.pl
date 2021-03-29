@@ -1,3 +1,5 @@
+% argument c2
+% attacks d3
 :- dynamic cause_of_damage_to_ship/2.
 % Neither the plaintiff nor the defendant provide significant evidence 
 % indicating the intent of the parties in including the term "requisition" in the policy. 
@@ -10,8 +12,6 @@
 % 
 % Since there is no requisition, the exclusion clause for
 % the war risk policy (Rule2b) cannot be applied.  
-
-:- include('../war_risk_policy.pl').
 
 % argument.........................................
 cause_of_damage_to_ship(weapon_of_war, rebels).
