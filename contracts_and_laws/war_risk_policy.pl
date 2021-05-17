@@ -18,3 +18,8 @@ exemption :- cause_of_damage_to_ship(detainment, government_forces).
 exemption :- cause_of_damage_to_ship(preemption, government_forces).
 exemption :- cause_of_damage_to_ship(confiscation, government_forces).
 exemption :- cause_of_damage_to_ship(requisition, government_forces).
+
+
+exemption :-
+    ship_damaged_after(requisition, government_forces),
+    construe_term_in_favour_of(requisition, defendant).

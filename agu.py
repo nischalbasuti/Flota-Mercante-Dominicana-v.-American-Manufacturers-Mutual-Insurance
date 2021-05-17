@@ -4,15 +4,19 @@ import os
 
 prolog = Prolog()
 
+# helper functions
+def query_bool(q):
+    return bool(list(prolog.query(q)))
+
+def attacks(arg1, arg2):
+    return query_bool("attack(%s, %s)"  % (arg1, arg2))
+
+def acceptable(arg):
+    return query_bool("acceptable(%s)"  % arg)
+
 # define Argument Processing Unit
 prolog.assertz("acceptable(X) :- not(defeat(X))")
 prolog.assertz("defeat(X) :- attack(Y, X), acceptable(Y)")
-
-def attacks(arg1, arg2):
-    return bool(list(prolog.query("attack(%s, %s)"  % (arg1, arg2))))
-
-def acceptable(arg):
-    return bool(list(prolog.query("acceptable(%s)"  % arg)))
 
 # load contracts and laws
 for filename in os.listdir("./contracts_and_laws"): 
@@ -25,6 +29,9 @@ for filename in os.listdir("./arguments"):
     f = open("./arguments/"+filename, "r")
     lines = f.readlines()
     line_number = 0
+
+
+    if "argument" not in lines[line_number]: continue
 
     argument_name = lines[line_number].replace("% argument ", "").strip()
 
@@ -58,18 +65,15 @@ for key, value in arguments.items():
 
         prolog.consult("arguments/%s.pl" % key)
 
-def query(q):
-    return bool(list(prolog.query(q)))
-
 while(True):
     i = input(">> ").strip()
 
-    if(i == "halt"): break
+    if(i == "exit"): break
 
-    print(query(i))
+    print(query_bool(i))
 
-# arguments_file = open("generated_arguments.pl", "w")
-# arguments_file.write(attack_relations)
+arguments_file = open("generated_arguments.pl", "w")
+arguments_file.write(attack_relations)
 
-# rules_file = open("generated_rules.pl", "w")
-# rules_file.write(accepted_rules)
+rules_file = open("generated_rules.pl", "w")
+rules_file.write(accepted_rules)
